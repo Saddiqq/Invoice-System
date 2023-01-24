@@ -207,7 +207,7 @@ public class InvoicingSystem {
 				case 4:
 					// Report All Items
 					for (Item i : items) {
-						System.out.println(i.getItemID() + " - " + i.getItemName() + " - " + i.getUnitPrice());
+						System.out.println("Name: "+ i.getItemName() + " - " +"ID: "+i.getItemID() + " - "  + "Price: "+i.getUnitPrice());
 					}
 					break;
 				case 5:

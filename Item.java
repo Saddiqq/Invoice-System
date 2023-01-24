@@ -2,39 +2,46 @@ package invoicingSystem2;
 
 public class Item {
 
-	    public Item(String itemID2, String itemName2, double unitPrice2, int quantity2) {
-		// TODO Auto-generated constructor stub
+	private String itemID;
+	private String itemName;
+	private double unitPrice;
+	private int quantity;
+	private double qtyAmount;
+	public Item(String itemID, String itemName, double unitPrice, int quantity) {
+	    this.itemID = itemID;
+	    this.itemName = itemName;
+	    this.unitPrice = unitPrice;
+	    this.quantity = quantity;
+	    this.qtyAmount = unitPrice * quantity;
 	}
-		private String itemID;
-	    private String itemName;
-	    private double unitprice;
-	    private int quantity;
-	    private double qtyAmount;
-		public Object getItemID() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public void setUnitPrice(double newPrice) {
-			// TODO Auto-generated method stub
-			
-		}
-		public Object getItemName() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public Object getUnitPrice() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public Object getQuantity() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public Object getQtyAmount() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	    
-	
+
+	// getters and setters
+	public String getItemID() {
+	    return itemID;
+	}
+	public void setItemID(String itemID) {
+	    this.itemID = itemID;
+	}
+	public String getItemName() {
+	    return itemName;
+	}
+	public void setItemName(String itemName) {
+	    this.itemName = itemName;
+	}
+	public double getUnitPrice() {
+	    return unitPrice;
+	}
+	public void setUnitPrice(double unitPrice) {
+	    this.unitPrice = unitPrice;
+	}
+	public int getQuantity() {
+	    return quantity;
+	}
+	public void setQuantity(int quantity) {
+	    this.quantity = quantity;
+	}
+	public double getQtyAmount() {
+	    return qtyAmount;
+	}	
 	
 }
