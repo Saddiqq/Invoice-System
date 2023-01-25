@@ -67,6 +67,9 @@ public class Invoice {
 	public double getBalance() {
 		return balance;
 	}
+	public void setBalance(double balance) {
+	    this.balance = balance;
+	}
 
 	// add item to invoice
 	public void addItem(Item item) {
@@ -104,4 +107,7 @@ public class Invoice {
 	public int getInvoiceNumber() {
 	    return invoiceNumber;
 	}
+	
+
+	
 }

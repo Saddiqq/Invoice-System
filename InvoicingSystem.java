@@ -22,10 +22,12 @@ public class InvoicingSystem {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-
+		
 		while (true) {
               ////////////////////////////////////////////////////////// Main Menu //////////////////////////////////////////////////////////
-			Menu mainMenu = new Menu();
+			System.out.println("----------  Main Menu  ----------");
+		
+			Menu mainMenu = new Menu();			
 			mainMenu.addMenuItem("Shop Settings");
 			mainMenu.addMenuItem("Manage Shop Items");
 			mainMenu.addMenuItem("Create New Invoice");
@@ -36,10 +38,11 @@ public class InvoicingSystem {
 			mainMenu.addMenuItem("Exit");
 			mainMenu.showMenu();
 
+			// try-catch block to handle invalid input
 			try {
 				int choice = input.nextInt();
 				menuCounters[choice]++;
-
+				// switch case to handle menu choices
 				switch (choice) {
 				case 1:
 					// Shop Settings
@@ -61,6 +64,8 @@ public class InvoicingSystem {
 				case 5:
 					// Report: All Invoices
 					reportInvoices();
+					//Exit the Program after printing the Invoice
+					System.exit(0);
 					break;
 				case 6:
 					// Search Invoices
@@ -81,6 +86,7 @@ public class InvoicingSystem {
 				default:
 					System.out.println("Invalid choice. Please try again.");
 				}
+				// Handle exception for invalid input
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input. Please enter a number.");
 				input.next();
@@ -92,6 +98,7 @@ public class InvoicingSystem {
 	private static void shopSettings(Scanner input) {
 		while (true) {
 			// Shop Settings Menu
+			System.out.println("---------- Shop Settings Menu  ----------");
 			Menu shopSettingsMenu = new Menu();
 			shopSettingsMenu.addMenuItem("Display Data");
 			shopSettingsMenu.addMenuItem("Set Shop Name");
@@ -150,8 +157,9 @@ public class InvoicingSystem {
 	private static void manageItems(Scanner input) {
 		while (true) {
 			// Manage Shop Items Menu
+			System.out.println("---------- Manage Shop Items Menu  ----------");
 			Menu manageItemsMenu = new Menu();
-			manageItemsMenu.addMenuItem("Add Items (Item should be saved/serialized)");
+			manageItemsMenu.addMenuItem("Add Items");
 			manageItemsMenu.addMenuItem("Delete Items");
 			manageItemsMenu.addMenuItem("Change Item Price");
 			manageItemsMenu.addMenuItem("Report All Items");
@@ -224,7 +232,7 @@ public class InvoicingSystem {
 	 ////////////////////////////////////////////////////////// Create Invoice //////////////////////////////////////////////////////////
 	private static void createInvoice(Scanner input) {
 	 
-		
+		System.out.println("---------- Create Invoice  ----------");
 		System.out.println("Enter customer name:");
 		String customerName = input.next();
 		System.out.println("Enter phone number:");
@@ -306,38 +314,51 @@ public class InvoicingSystem {
 		System.out.println("Total sales: " + totalSales);
 	}
 
-	private static void reportInvoices() {
-		for (Invoice invoice : invoices) {
-			
-			// Shop setting Details implemented to Invoice
-			 //displayFormat  
-         
-            {  
-            	System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");
-                System.out.format("   %-20s   %-20s   %-20s   %-20s   %-20s\n", "Invoice Number", "Customer Name", "Number of items", "Total Price","Balance");  
-                System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");  
-            }  
-               
-            // display  
+		private static void reportInvoices() {
+		    Scanner input = new Scanner(System.in);
+		    for (Invoice invoice : invoices) {
+		        System.out.println("\n\n\n\t\t\t\t    --------------------Invoice-----------------");
+		        System.out.println("\t\t\t\t\t\t    "+"     "+shopName);
+		        System.out.println("Phone: " + tel);
+		        System.out.println("fax: "+ fax);
+		        System.out.println("Email: " + email);
+		        System.out.println("Website: " + website);
 
-            {  
-            	System.out.format("   %-20s   %-20s   %-20s   %-20.2f   %-20.2f\n", invoice.getInvoiceNumber(), invoice.getCustomerName(), invoice.items.size(), invoice.getTotalAmount(),invoice.getBalance());    
-            }  
 
-			System.out.println("\t\t\t\t--------------------Invoice-----------------");
-			System.out.println("\t\t\t\t\t\t    "+" "+shopName);
-			System.out.println("\t\t\t\t\t" +"Phone: " + tel);
-			System.out.println("\t\t\t\t\t" +"fax: "+ fax);
-			System.out.println("\"\\t\\t\\t\\t\\t\" " + "\" " + email);
-			System.out.println("\"\\t\\t\\t\\t\\t\" " + "\" " + website);
-			System.out.println("Invoice Number: " + invoice.getInvoiceNumber());
-			System.out.println("Invoice Date: " + invoice.getInvoiceDate());
-			System.out.println("Customer Name: " + invoice.getCustomerName());
-			System.out.println("Number of items: " + invoice.items.size());
-			System.out.println("Total amount: " + invoice.getTotalAmount());
-			System.out.println("Balance: " + invoice.getBalance());
+		        {  
+		            System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");
+		            System.out.format("   %-20s   %-20s   %-20s   %-20s   %-20s\n", "Invoice Number", "Customer Name", "Number of items", "Total Price","Balance");  
+		            System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");  
+		        }  
+
+		        // display  
+
+		        {  
+		            System.out.format("   %-20s   %-20s   %-20s   %-20.2f   %-20.2f\n", invoice.getInvoiceNumber(), invoice.getCustomerName(), invoice.items.size(), invoice.getTotalAmount(),invoice.getBalance());    
+		        }  
+
+
+		        System.out.println("\n\n\n\n\n\n\n\n");
+		        System.out.println("Invoice Date: " + invoice.getInvoiceDate());
+		        System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");
+
+
+		        //Ask user to enter paid amount
+		        System.out.println("Enter the paid amount for this invoice: ");
+		        double paidAmount = input.nextDouble();
+		        invoice.setPaidAmount(paidAmount);
+		        //Calculate the balance
+		        double balance = invoice.getTotalAmount() - paidAmount;
+		        invoice.setBalance(balance);
+		        System.out.println("Balance: " + invoice.getBalance());
+		    }
 		}
-	}
+	
+	
+	
+	
+	
+	
 	 ////////////////////////////////////////////////////////// Search Invoice //////////////////////////////////////////////////////////
 	private static void searchInvoice(Scanner input) {
 		System.out.println("Enter invoice number:");
@@ -345,7 +366,7 @@ public class InvoicingSystem {
 		Invoice invoice = null;
 		for (Invoice i : invoices) {
 			if (i.getInvoiceNumber() == invoiceNumber) {
-				invoice = i;
+				invoice = i; 
 				break;
 			}
 		}
@@ -370,7 +391,7 @@ public class InvoicingSystem {
 			System.out.println("Main Menu Item " + i + " selected " + menuCounters[i - 1] + " times.");
 		}
 	}
-//////////////////////////////////////////////////////////Program Statistics //////////////////////////////////////////////////////////
+
 	private static void writeItemsToFile() {
 	    try {
 	        FileOutputStream fos = new FileOutputStream("items.ser");
