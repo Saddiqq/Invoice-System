@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class InvoicingSystem {
+	//variable to keep track of invoice number
+	static int invoiceNumber = 1; 
 	private static ArrayList<Invoice> invoices = new ArrayList<>();
 	private static ArrayList<Item> items = new ArrayList<>();
 	private static String shopName;
@@ -91,7 +93,7 @@ public class InvoicingSystem {
 		while (true) {
 			// Shop Settings Menu
 			Menu shopSettingsMenu = new Menu();
-			shopSettingsMenu.addMenuItem("Load Data");
+			shopSettingsMenu.addMenuItem("Display Data");
 			shopSettingsMenu.addMenuItem("Set Shop Name");
 			shopSettingsMenu.addMenuItem("Set Invoice Header (Tel / Fax / Email / Website)");
 			shopSettingsMenu.addMenuItem("Go Back");
@@ -102,8 +104,7 @@ public class InvoicingSystem {
 
 				switch (choice) {
 				case 1:
-					// Load Data (Items and invoices)
-					// code to load data from file
+					// code to Display data from file
 					System.out.println("Shop Name: " + shopName);
 					System.out.println("Tel: " + tel);
 					System.out.println("Fax: " + fax);
@@ -222,15 +223,19 @@ public class InvoicingSystem {
 	}
 	 ////////////////////////////////////////////////////////// Create Invoice //////////////////////////////////////////////////////////
 	private static void createInvoice(Scanner input) {
+	 
+		
 		System.out.println("Enter customer name:");
 		String customerName = input.next();
 		System.out.println("Enter phone number:");
 		String phoneNumber = input.next();
-		Invoice invoice = new Invoice(customerName, phoneNumber, new Date());
+		 Invoice invoice = new Invoice(customerName, phoneNumber, invoiceNumber, new Date());
+		// increment invoiceNumber for next invoice
+		  invoiceNumber++;
 		while (true) {
 			// Add Items to Invoice Menu
 			Menu addItemsMenu = new Menu();
-			addItemsMenu.addMenuItem("Add Item");
+			addItemsMenu.addMenuItem("Add Item");	
 			addItemsMenu.addMenuItem("Remove Item");
 			addItemsMenu.addMenuItem("Finish and Save Invoice)");
 			addItemsMenu.showMenu();
@@ -285,7 +290,7 @@ public class InvoicingSystem {
 				input.next();
 			}
 		}
-
+	
 	}
 	 ////////////////////////////////////////////////////////// Report Statistics //////////////////////////////////////////////////////////
 	private static void reportStatistics() {

@@ -1,15 +1,13 @@
 package invoicingSystem2;
 
-import java.io.*;
 import java.util.*;
 
 public class Invoice {
 
-	
-
 	private String customerName;
 	private String phoneNumber;
 	private Date invoiceDate;
+	private int invoiceNumber;
 	private int numberOfItems;
 	private double totalAmount;
 	private double paidAmount;
@@ -17,10 +15,11 @@ public class Invoice {
 	ArrayList<Item> items;
 
 	// constructor
-	public Invoice(String customerName, String phoneNumber, Date invoiceDate) {
+	public Invoice(String customerName, String phoneNumber,int invoiceNumber, Date invoiceDate) {
 		this.customerName = customerName;
 		this.phoneNumber = phoneNumber;
 		this.invoiceDate = invoiceDate;
+		this.invoiceNumber = invoiceNumber;
 		this.items = new ArrayList<>();
 	}
 
@@ -103,7 +102,6 @@ public class Invoice {
 	}
 
 	public int getInvoiceNumber() {
-		// TODO Auto-generated method stub
-		return 0;
+	    return invoiceNumber;
 	}
 }
