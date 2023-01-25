@@ -1,5 +1,7 @@
 package invoicingSystem2;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -19,11 +21,8 @@ public class InvoicingSystem {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 
-	
-		
-		
 		while (true) {
-			// Main Menu
+              ////////////////////////////////////////////////////////// Main Menu //////////////////////////////////////////////////////////
 			Menu mainMenu = new Menu();
 			mainMenu.addMenuItem("Shop Settings");
 			mainMenu.addMenuItem("Manage Shop Items");
@@ -62,7 +61,7 @@ public class InvoicingSystem {
 					reportInvoices();
 					break;
 				case 6:
-					// Search (1) Invoice
+					// Search Invoices
 					searchInvoice(input);
 					break;
 				case 7:
@@ -87,8 +86,7 @@ public class InvoicingSystem {
 		}
 	}
 
-
-
+	   ////////////////////////////////////////////////////////// Shop Settings //////////////////////////////////////////////////////////
 	private static void shopSettings(Scanner input) {
 		while (true) {
 			// Shop Settings Menu
@@ -113,7 +111,7 @@ public class InvoicingSystem {
 					System.out.println("Website: " + website);
 					break;
 				case 2:
-					// Set Shop Name 
+					// Set Shop Name
 					System.out.println("Enter shop name:");
 					shopName = input.next();
 					// code to save data to file
@@ -144,11 +142,10 @@ public class InvoicingSystem {
 			}
 		}
 	}
-    private static void saveDataToFile(){
-    // code to save shopName, tel, fax, email, website to file
-    }
-
-
+	private static void saveDataToFile() {
+		// code to save shopName, tel, fax, email, website to file
+	}
+	 ////////////////////////////////////////////////////////// Manage Items //////////////////////////////////////////////////////////
 	private static void manageItems(Scanner input) {
 		while (true) {
 			// Manage Shop Items Menu
@@ -176,7 +173,7 @@ public class InvoicingSystem {
 					int quantity = input.nextInt();
 					Item item = new Item(itemID, itemName, unitPrice, quantity);
 					items.add(item);
-					// code to save data to file
+					writeItemsToFile();
 					break;
 				case 2:
 					// Delete Items
@@ -187,7 +184,7 @@ public class InvoicingSystem {
 						Item i = iterator.next();
 						if (i.getItemID().equals(itemID)) {
 							iterator.remove();
-							// code to delete data from file
+							writeItemsToFile();
 						}
 					}
 					break;
@@ -200,14 +197,15 @@ public class InvoicingSystem {
 					for (Item i : items) {
 						if (i.getItemID().equals(itemID)) {
 							i.setUnitPrice(newPrice);
-							// code to update data in file
+							writeItemsToFile();
 						}
 					}
 					break;
 				case 4:
 					// Report All Items
 					for (Item i : items) {
-						System.out.println("Name: "+ i.getItemName() + " - " +"ID: "+i.getItemID() + " - "  + "Price: "+i.getUnitPrice());
+						System.out.println("Name: " + i.getItemName() + " - " + "ID: " + i.getItemID() + " - "
+								+ "Price: " + i.getUnitPrice());
 					}
 					break;
 				case 5:
@@ -222,9 +220,7 @@ public class InvoicingSystem {
 			}
 		}
 	}
-
-
-
+	 ////////////////////////////////////////////////////////// Create Invoice //////////////////////////////////////////////////////////
 	private static void createInvoice(Scanner input) {
 		System.out.println("Enter customer name:");
 		String customerName = input.next();
@@ -291,7 +287,7 @@ public class InvoicingSystem {
 		}
 
 	}
-
+	 ////////////////////////////////////////////////////////// Report Statistics //////////////////////////////////////////////////////////
 	private static void reportStatistics() {
 		int numberOfItems = 0;
 		int numberOfInvoices = invoices.size();
@@ -315,7 +311,7 @@ public class InvoicingSystem {
 			System.out.println("Balance: " + invoice.getBalance());
 		}
 	}
-
+	 ////////////////////////////////////////////////////////// Search Invoice //////////////////////////////////////////////////////////
 	private static void searchInvoice(Scanner input) {
 		System.out.println("Enter invoice number:");
 		int invoiceNumber = input.nextInt();
@@ -341,10 +337,24 @@ public class InvoicingSystem {
 			System.out.println("Invoice not found.");
 		}
 	}
-
-private static void programStatistics() {
-for (int i = 1; i <= menuCounters.length; i++) {
-    System.out.println("Main Menu Item " + i + " selected " + menuCounters[i - 1] + " times.");
-}
-}
-}
+	 ////////////////////////////////////////////////////////// Program Statistics //////////////////////////////////////////////////////////
+	private static void programStatistics() {
+		for (int i = 1; i <= menuCounters.length; i++) {
+			System.out.println("Main Menu Item " + i + " selected " + menuCounters[i - 1] + " times.");
+		}
+	}
+//////////////////////////////////////////////////////////Program Statistics //////////////////////////////////////////////////////////
+	private static void writeItemsToFile() {
+	    try {
+	        FileOutputStream fos = new FileOutputStream("items.ser");
+	        ObjectOutputStream oos = new ObjectOutputStream(fos);
+	        oos.writeObject(items);
+	        oos.close();
+	        fos.close();
+	        System.out.println("Items saved to file successfully.");
+	    } catch (Exception e) {
+	        //System.out.println("Error saving items to file: " + e.getMessage());
+	    }
+	}
+	}
+	
