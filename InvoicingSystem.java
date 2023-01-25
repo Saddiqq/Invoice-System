@@ -237,7 +237,7 @@ public class InvoicingSystem {
 			Menu addItemsMenu = new Menu();
 			addItemsMenu.addMenuItem("Add Item");	
 			addItemsMenu.addMenuItem("Remove Item");
-			addItemsMenu.addMenuItem("Finish and Save Invoice)");
+			addItemsMenu.addMenuItem("Finish and Save Invoice");
 			addItemsMenu.showMenu();
 			try {
 				int choice = input.nextInt();
@@ -308,6 +308,28 @@ public class InvoicingSystem {
 
 	private static void reportInvoices() {
 		for (Invoice invoice : invoices) {
+			
+			// Shop setting Details implemented to Invoice
+			 //displayFormat  
+         
+            {  
+            	System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");
+                System.out.format("   %-20s   %-20s   %-20s   %-20s   %-20s\n", "Invoice Number", "Customer Name", "Number of items", "Total Price","Balance");  
+                System.out.format("-----------------------------------------------------------------------------------------------------------------------------------\n");  
+            }  
+               
+            // display  
+
+            {  
+            	System.out.format("   %-20s   %-20s   %-20s   %-20.2f   %-20.2f\n", invoice.getInvoiceNumber(), invoice.getCustomerName(), invoice.items.size(), invoice.getTotalAmount(),invoice.getBalance());    
+            }  
+
+			System.out.println("\t\t\t\t--------------------Invoice-----------------");
+			System.out.println("\t\t\t\t\t\t    "+" "+shopName);
+			System.out.println("\t\t\t\t\t" +"Phone: " + tel);
+			System.out.println("\t\t\t\t\t" +"fax: "+ fax);
+			System.out.println("\"\\t\\t\\t\\t\\t\" " + "\" " + email);
+			System.out.println("\"\\t\\t\\t\\t\\t\" " + "\" " + website);
 			System.out.println("Invoice Number: " + invoice.getInvoiceNumber());
 			System.out.println("Invoice Date: " + invoice.getInvoiceDate());
 			System.out.println("Customer Name: " + invoice.getCustomerName());
